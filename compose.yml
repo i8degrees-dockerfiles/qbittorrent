@@ -1,0 +1,23 @@
+#
+#
+# 1. https://hub.docker.com/r/linuxserver/qbittorrent
+#
+---
+services:
+  qbittorrent:
+    image: lscr.io/linuxserver/qbittorrent:latest
+    container_name: qbittorrent-1
+    environment:
+      - PUID=500
+      - PGID=50
+      - TZ=America/Chicago
+      - WEBUI_PORT=9090
+      - TORRENTING_PORT=6881
+    volumes:
+      - ./mounts/config/:/config
+      - /mnt/fs1/Software/torrents:/downloads #optional
+    ports:
+      - 9090:8080
+      - 6881:6881
+      - 6881:6881/udp
+    restart: unless-stopped
