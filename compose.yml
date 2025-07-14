@@ -3,6 +3,17 @@
 # 1. https://hub.docker.com/r/linuxserver/qbittorrent
 #
 ---
+
+#version: 3.8
+
+networks:
+  traefik-proxy:
+    attachable: true
+    driver: overlay
+    external: true
+
+#volumes:
+
 services:
   qbittorrent:
     image: lscr.io/linuxserver/qbittorrent:latest
@@ -20,6 +31,8 @@ services:
       - 9090:8080
       - 6881:6881
       - 6881:6881/udp
+    networks:
+      - traefik-proxy
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
