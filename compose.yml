@@ -21,3 +21,10 @@ services:
       - 6881:6881
       - 6881:6881/udp
     restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.aria2-webui.rule=((Host(`qdownloads.fs1.home`)) && PathPrefix(`/`))"
+      - "traefik.http.routers.aria2-webui.entrypoints=web"
+      - "traefik.http.services.aria2-webui.loadbalancer.server.port=8080"
+      - "traefik.http.routers.aria2-webui.service=aria2-webui"
+      #- "traefik.http.routers.aria2-webui.tls.certresolver=staging-web-acme"
